@@ -1,0 +1,10 @@
+{
+  "name": "reproduce-yarn-berry-6667",
+  "packageManager": "yarn@4.6.0",
+  "workspaces": [
+    "./pkgs/hello"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach --all --exclude . run build"
+  }
+}
