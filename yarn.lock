@@ -11,8 +11,8 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"reproduce-yarn-berry-6666@workspace:.":
+"reproduce-yarn-berry-6667@workspace:.":
   version: 0.0.0-use.local
-  resolution: "reproduce-yarn-berry-6666@workspace:."
+  resolution: "reproduce-yarn-berry-6667@workspace:."
   languageName: unknown
   linkType: soft

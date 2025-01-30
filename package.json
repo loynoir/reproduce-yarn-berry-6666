@@ -5,6 +5,8 @@
     "./pkgs/hello"
   ],
   "scripts": {
-    "build": "yarn workspaces foreach --all --exclude . run build"
+    "reproduce": "yarn workspaces foreach --all --exclude . run reproduce",
+    "workaround": "yarn workspaces foreach --all --exclude . run workaround",
+    "simulate": "yarn workspaces foreach --all --exclude . run simulate"
   }
 }

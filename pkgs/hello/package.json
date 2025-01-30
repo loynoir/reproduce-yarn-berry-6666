@@ -2,6 +2,8 @@
   "name": "hello",
   "packageManager": "yarn@4.6.0",
   "scripts": {
-    "build": "sudo docker build ."
+    "reproduce": "sudo node ./simulate.mjs",
+    "workaround": "deno run -A ./workaround.ts",
+    "simulate": "node ./simulate.mjs"
   }
 }
