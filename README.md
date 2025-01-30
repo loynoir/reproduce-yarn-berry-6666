@@ -1,6 +1,7 @@
 # reproduce-yarn-berry-6667
 
-[BUG] `yarn workspaces foreach run` prefix string will mess up console, when `sudo`.
+[BUG] `yarn workspaces foreach run` prefix string will mess up console, when
+`sudo`.
 
 ## prepare
 
@@ -35,9 +36,8 @@ $ bash container.sh
 `yarn workspaces foreach run` prefix string will mess up console, when `sudo`.
 
 ```json
-
-  "scripts": {
-    "reproduce": "sudo xxx"
+"scripts": {
+  "reproduce": "sudo xxx"
 ```
 
 ```sh
@@ -72,7 +72,14 @@ Done in 0s 165ms
 
 ## expected
 
-`yarn workspaces foreach run` prefix string will not mess up console, when workaround or simulate.
+- `yarn workspaces foreach run` prefix string will not mess up console, when
+  workaround or simulate.
+
+- `yarn workspaces foreach run` prefix string will mess up again when disable
+  deno wrapper on `sudo` output
+
+<details>
+<summary>console OK when workaround with deno wrapper on `sudo` output</summary>
 
 ```sh
 [root@e556503f99d5 app]# yarn workaround
@@ -103,6 +110,11 @@ Done in 0s 165ms
 Done in 0s 738ms
 ```
 
+</details>
+
+<details>
+<summary>console OK when not sudo</summary>
+
 ```sh
 [root@e556503f99d5 app]# yarn simulate
 [hello]: Process started
@@ -131,3 +143,39 @@ Done in 0s 738ms
 [hello]: Process exited (exit code 0), completed in 0s 91ms
 Done in 0s 95ms
 ```
+
+</details>
+
+<details>
+<summary>console messup when disable deno wrapper on `sudo` output</summary>
+
+```sh
+# DISABLE_WORKAROUND=1 yarn workaround
+[hello]: Process started
+[hello]: #0 building with "default" instance using docker driver
+                                                                [hello]:
+                                                                         [hello]: #1 [internal] load build definition from Dockerfile
+                                                                                                                                     [hello]: #1 transferring dockerfile:
+           [hello]: #1 transferring dockerfile: 163B done
+                                                         [hello]: #1 DONE 0.4s
+                                                                              [hello]:
+                                                                                       [hello]: #2 [internal] load metadata for public.ecr.aws/docker/library/hello-world:latest@sha256:d715f14f9eca81473d9112df50457893aa4d099adeb4729f679006bf5ea12407
+                                                                                          [hello]: #2 DONE 0.7s
+                                                                                                               [hello]:
+                                                                                                                        [hello]: #3 [internal] load .dockerignore
+   [hello]: #3 transferring context:
+                                    [hello]: #3 transferring context: 2B done
+                                                                             [hello]: #3 DONE 0.4s
+                                                                                                  [hello]:
+                                                                                                           [hello]: #4 [1/1] FROM public.ecr.aws/docker/library/hello-world:latest@sha256:d715f14f9eca81473d9112df50457893aa4d099adeb4729f679006bf5ea12407
+                                                                                            [hello]: #4 CACHED
+                                                                                                              [hello]:
+                                                                                                                       [hello]: #5 exporting to image
+                                                                                                                                                     [hello]: #5 exporting layers done
+                        [hello]: #5 writing image sha256:74cc54e27dc41bb10dc4b2226072d469509f2f22f1a3ce74f4a59661a1d44602 0.0s done
+                                                                                                                                   [hello]: #5 DONE 0.2s
+                                                                                                                                                        [hello]: Process exited (exit code 0), completed in 0s 155ms
+Done in 0s 160ms
+```
+
+</details>
